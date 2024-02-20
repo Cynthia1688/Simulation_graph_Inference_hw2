@@ -1,0 +1,37 @@
+---
+title: "MVBU_graph"
+author: "Yangyang Chen"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+# Define sample size
+n <- 100
+
+# Generate x values
+x <- seq(0.01, 1, length.out = 100)  # Avoid x = 0 for log(x)
+
+# Calculate y values for the first function
+y1 <- -log(x) * (x^2) / n
+
+# Calculate y values for the second function
+y2 <- (x - x^2) / n
+
+# Create data frame
+df <- data.frame(x = rep(x, 2), y = c(y1, y2), func = rep(c("y1", "y2"), each = length(x)))
+
+# Create the plot
+ggplot(df, aes(x = x, y = y, color = func)) +
+  geom_line() +
+  labs(x = "x", y = "y", title = "Plot of y = -log(x) * (x^2)/n and y = (x-x^2)/n") +
+  theme_minimal()
+
+```
+
